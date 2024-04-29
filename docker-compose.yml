@@ -1,0 +1,23 @@
+version: "3.1"
+services:
+  short:
+    image: short
+    build: .
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - redis
+    environment:
+      - REDIS_URL=redis://default:12345@redis:6379/0?protocol=3
+  
+  redis:
+    image: redis:7.2.4
+    restart: always
+    ports:
+      - "6379:6379"
+    command: /bin/sh -c "redis-server --requirepass $${REDIS_PASSWORD} --appendonly yes"
+    environment:
+      - REDIS_PASSWORD=12345
+      - REDIS_PORT=6379
+      - REDIS_DATABASES=16

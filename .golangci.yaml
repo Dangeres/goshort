@@ -1,0 +1,44 @@
+# More info on config here: https://golangci-lint.run/usage/configuration/#config-file
+
+run:
+  concurrency: 8
+  timeout: 10m
+  issues-exit-code: 1
+  tests: true
+
+output:
+  formats:
+    - format: colored-line-number
+  print-issued-lines: true
+  print-linter-name: true
+
+linters-settings:
+  govet:
+    enable:
+      - shadow
+  goconst:
+    min-len:         2
+    min-occurrences: 2
+  gocyclo:
+    min-complexity: 10
+  gocognit:
+    min-complexity: 10
+
+linters:
+  disable-all: true
+  enable:
+    - errcheck
+    - goconst
+    - goimports
+    - gosec
+    - govet
+    - ineffassign
+    - megacheck
+    - revive
+    - typecheck
+    - unused
+    - gocyclo
+    - gocognit
+
+issues:
+  exclude-use-default: false
