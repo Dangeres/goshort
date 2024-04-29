@@ -1,3 +1,5 @@
+export REDIS_PASSWORD=12345
+
 build:
 	go build -o bin/main cmd/server/main.go
 
