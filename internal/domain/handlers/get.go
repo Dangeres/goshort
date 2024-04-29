@@ -6,21 +6,27 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Dangeres/goshort/internal/constants"
 	"github.com/Dangeres/goshort/internal/structures"
+	"github.com/gorilla/schema"
 )
 
 // HUnShort uses for unshort url
 func (url URL) HUnShort(w http.ResponseWriter, r *http.Request) {
-	// dat, _ := io.ReadAll(r.Body)
-
-	// log.Println(string(dat))
-
 	ctx := r.Context()
 
-	surl := r.PathValue(constants.PathURL)
+	getin := structures.GetIn{}
 
-	rget := url.redis.Get(ctx, surl)
+	decoder := schema.NewDecoder()
+
+	err := decoder.Decode(&getin, r.URL.Query())
+
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		log.Println(err)
+		return
+	}
+
+	rget := url.redis.Get(ctx, getin.URL)
 
 	rdata, err := rget.Result()
 
@@ -42,7 +48,7 @@ func (url URL) HUnShort(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if pr.Redirect {
+	if getin.Redirect {
 		http.Redirect(w, r, pr.URL, http.StatusSeeOther)
 		return
 	}
@@ -50,7 +56,7 @@ func (url URL) HUnShort(w http.ResponseWriter, r *http.Request) {
 	_, err = w.Write(boutdata)
 
 	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
+		w.WriteHeader(http.StatusInternalServerError)
 		log.Println(err)
 		return
 	}

@@ -3,6 +3,7 @@ module github.com/Dangeres/goshort
 go 1.22.0
 
 require (
+	github.com/gorilla/schema v1.3.0
 	github.com/redis/go-redis/v9 v9.5.1
 	github.com/stretchr/testify v1.9.0
 )

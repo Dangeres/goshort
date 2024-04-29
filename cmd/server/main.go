@@ -34,7 +34,7 @@ func main() {
 	hndls := handlers.New(redis)
 
 	mux.HandleFunc(
-		fmt.Sprintf("GET /get/{%s}", constants.PathURL),
+		"GET /get",
 
 		middlewares.CalcTime(hndls.HUnShort),
 	)

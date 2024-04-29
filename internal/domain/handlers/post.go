@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/Dangeres/goshort/internal/constants"
 	"github.com/Dangeres/goshort/internal/repository/shorter"
 	"github.com/Dangeres/goshort/internal/structures"
 )
@@ -36,6 +37,10 @@ func (url URL) HShort(w http.ResponseWriter, r *http.Request) {
 
 	if data.TTL == 0 {
 		data.TTL = 24 * 60
+	}
+
+	if data.TTL > constants.MaxTTL {
+		data.TTL = constants.MaxTTL
 	}
 
 	hashedURL := shorter.ShortLink()
