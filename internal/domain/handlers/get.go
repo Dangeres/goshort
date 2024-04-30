@@ -26,9 +26,7 @@ func (url URL) HUnShort(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	rget := url.redis.Get(ctx, getin.URL)
-
-	rdata, err := rget.Result()
+	rdata, err := url.redis.Get(ctx, getin.URL)
 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)

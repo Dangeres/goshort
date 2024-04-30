@@ -9,3 +9,6 @@ run-all:
 
 lint:
 	golangci-lint run
+
+gen-mocks:
+	go generate ./internal/domain/handlers

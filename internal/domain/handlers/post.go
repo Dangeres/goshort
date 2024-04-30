@@ -53,9 +53,9 @@ func (url URL) HShort(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res := url.redis.Set(ctx, hashedURL, inredisdata, time.Minute*time.Duration(data.TTL))
+	_, err = url.redis.Set(ctx, hashedURL, inredisdata, time.Minute*time.Duration(data.TTL))
 
-	if res.Err() != nil {
+	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Println(err)
 		return

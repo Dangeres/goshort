@@ -1,2 +1,6 @@
+# Folders
 /bin
 .vscode
+
+# Files
+__debug*
