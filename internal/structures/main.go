@@ -14,7 +14,7 @@ type ShortOut struct {
 	SURL string `json:"surl"`
 }
 
-// // GetIn uses like input schema for get link request
+// GetIn uses like input schema for get link request
 type GetIn struct {
 	URL      string `json:"url" schema:"url"`
 	Redirect bool   `json:"redirect" schema:"redirect"`

@@ -2,6 +2,7 @@
 package redis
 
 import (
+	"context"
 	"os"
 
 	"github.com/redis/go-redis/v9"
@@ -17,5 +18,13 @@ func New() *redis.Client {
 		panic(err)
 	}
 
-	return redis.NewClient(opts)
+	client := redis.NewClient(opts)
+
+	_, err = client.Ping(context.Background()).Result()
+
+	if err != nil {
+		panic(err)
+	}
+
+	return client
 }

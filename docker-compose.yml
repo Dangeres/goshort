@@ -10,14 +10,15 @@ services:
       - redis
     environment:
       - REDIS_URL=redis://default:${REDIS_PASSWORD}@redis:6379/0?protocol=3
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
   
   redis:
     image: redis:7.2.4
     restart: always
     ports:
       - "6379:6379"
-    command: /bin/sh -c "redis-server --requirepass $${REDIS_PASSWORD} --appendonly yes"
+    command: /bin/sh -c "redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes"
     environment:
-      - REDIS_PASSWORD=$${REDIS_PASSWORD}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
       - REDIS_PORT=6379
       - REDIS_DATABASES=16
