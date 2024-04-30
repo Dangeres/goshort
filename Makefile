@@ -1,4 +1,5 @@
 export REDIS_PASSWORD=12345
+export REDIS_URL=redis://default:${REDIS_PASSWORD}@redis:6379/0?protocol=3
 
 build:
 	go build -o bin/main cmd/server/main.go
