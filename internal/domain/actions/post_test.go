@@ -27,13 +27,13 @@ func TestPostSuccessBasic(t *testing.T) {
 	)
 
 	redis.SetMock.Set(
-		func(ctx context.Context, s1 string, ba1 []byte, d1 time.Duration) (s2 string, err error) {
+		func(_ context.Context, _ string, _ []byte, _ time.Duration) (string, error) {
 			return short, nil
 		},
 	)
 
 	redis.ExpireMock.Set(
-		func(ctx context.Context, s1 string) (d1 int64, err error) {
+		func(_ context.Context, _ string) (int64, error) {
 			return now.Unix(), nil
 		},
 	)
@@ -61,13 +61,13 @@ func TestPostSuccessOverTTL(t *testing.T) {
 	)
 
 	redis.SetMock.Set(
-		func(ctx context.Context, s1 string, ba1 []byte, d1 time.Duration) (s2 string, err error) {
+		func(_ context.Context, _ string, _ []byte, _ time.Duration) (s2 string, err error) {
 			return short, nil
 		},
 	)
 
 	redis.ExpireMock.Set(
-		func(ctx context.Context, s1 string) (d1 int64, err error) {
+		func(_ context.Context, _ string) (int64, error) {
 			return now.Unix() + constants.MaxTTL, nil
 		},
 	)

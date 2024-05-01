@@ -1,3 +1,4 @@
+// Package actions uses for action in app
 package actions
 
 import (
@@ -7,6 +8,7 @@ import (
 	"github.com/Dangeres/goshort/internal/structures"
 )
 
+// Get uses for get handle action
 func (a Actions) Get(ctx context.Context, getin structures.GetIn) (structures.InRedisData, error) {
 	rdata, err := a.redis.Get(ctx, getin.URL)
 

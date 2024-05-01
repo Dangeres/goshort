@@ -10,7 +10,7 @@ import (
 	"github.com/gorilla/schema"
 )
 
-// HUnShort uses for unshort url
+// UnShort uses for unshort url
 func (hu HandlerURL) UnShort(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 

@@ -10,6 +10,7 @@ import (
 	"github.com/Dangeres/goshort/internal/structures"
 )
 
+// Post uses for post handle action
 func (a Actions) Post(ctx context.Context, data structures.ShortIn) (structures.ShortOut, error) {
 	if data.TTL == 0 {
 		data.TTL = 24 * 60

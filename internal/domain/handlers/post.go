@@ -10,7 +10,7 @@ import (
 	"github.com/Dangeres/goshort/internal/structures"
 )
 
-// HShort uses for short link
+// Short uses for short link
 func (hu HandlerURL) Short(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
