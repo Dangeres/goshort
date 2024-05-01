@@ -27,5 +27,7 @@ type GetOut struct {
 
 // InRedisData uses like schema for save in redis storage
 type InRedisData struct {
-	ShortIn
+	TTL   int64  `json:"ttl"`
+	Count uint   `json:"count"`
+	URL   string `json:"url"`
 }

@@ -11,4 +11,15 @@ lint:
 	golangci-lint run
 
 gen-mocks:
-	go generate ./internal/domain/handlers
+	go generate ./internal/...
+
+tests:
+	go test ./internal/...
+
+coverage:
+	go test ./internal/... -coverprofile cover.out && go tool cover -func cover.out > coverage.out && \
+	rm -f cover.out
+
+coverage-html:
+	go test -count=1 ./internal/... -coverprofile coverage.out && go tool cover -html=coverage.out && \
+	rm coverage.out
