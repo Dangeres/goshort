@@ -2,7 +2,7 @@
 
 package mocks
 
-//go:generate minimock -i github.com/Dangeres/goshort/internal/domain/handlers.Rediser -o rediser_mock.go -n RediserMock -p mocks
+//go:generate minimock -i github.com/Dangeres/goshort/internal/domain/actions.Rediser -o rediser_mock.go -n RediserMock -p mocks
 
 import (
 	"context"
@@ -14,7 +14,7 @@ import (
 	"github.com/gojuno/minimock/v3"
 )
 
-// RediserMock implements handlers.Rediser
+// RediserMock implements actions.Rediser
 type RediserMock struct {
 	t          minimock.Tester
 	finishOnce sync.Once
@@ -50,7 +50,7 @@ type RediserMock struct {
 	SetMock          mRediserMockSet
 }
 
-// NewRediserMock returns a mock for handlers.Rediser
+// NewRediserMock returns a mock for actions.Rediser
 func NewRediserMock(t minimock.Tester) *RediserMock {
 	m := &RediserMock{t: t}
 
@@ -146,7 +146,7 @@ func (mmClose *mRediserMockClose) Set(f func() (err error)) *RediserMock {
 	return mmClose.mock
 }
 
-// Close implements handlers.Rediser
+// Close implements actions.Rediser
 func (mmClose *RediserMock) Close() (err error) {
 	mm_atomic.AddUint64(&mmClose.beforeCloseCounter, 1)
 	defer mm_atomic.AddUint64(&mmClose.afterCloseCounter, 1)
@@ -382,7 +382,7 @@ func (e *RediserMockExpireExpectation) Then(i1 int64, err error) *RediserMock {
 	return e.mock
 }
 
-// Expire implements handlers.Rediser
+// Expire implements actions.Rediser
 func (mmExpire *RediserMock) Expire(ctx context.Context, s1 string) (i1 int64, err error) {
 	mm_atomic.AddUint64(&mmExpire.beforeExpireCounter, 1)
 	defer mm_atomic.AddUint64(&mmExpire.afterExpireCounter, 1)
@@ -667,7 +667,7 @@ func (e *RediserMockGetExpectation) Then(s2 string, err error) *RediserMock {
 	return e.mock
 }
 
-// Get implements handlers.Rediser
+// Get implements actions.Rediser
 func (mmGet *RediserMock) Get(ctx context.Context, s1 string) (s2 string, err error) {
 	mm_atomic.AddUint64(&mmGet.beforeGetCounter, 1)
 	defer mm_atomic.AddUint64(&mmGet.afterGetCounter, 1)
@@ -859,7 +859,7 @@ func (mmPing *mRediserMockPing) Set(f func() (err error)) *RediserMock {
 	return mmPing.mock
 }
 
-// Ping implements handlers.Rediser
+// Ping implements actions.Rediser
 func (mmPing *RediserMock) Ping() (err error) {
 	mm_atomic.AddUint64(&mmPing.beforePingCounter, 1)
 	defer mm_atomic.AddUint64(&mmPing.afterPingCounter, 1)
@@ -1143,7 +1143,7 @@ func (e *RediserMockSetExpectation) Then(s2 string, err error) *RediserMock {
 	return e.mock
 }
 
-// Set implements handlers.Rediser
+// Set implements actions.Rediser
 func (mmSet *RediserMock) Set(ctx context.Context, s1 string, ba1 []byte, d1 time.Duration) (s2 string, err error) {
 	mm_atomic.AddUint64(&mmSet.beforeSetCounter, 1)
 	defer mm_atomic.AddUint64(&mmSet.afterSetCounter, 1)

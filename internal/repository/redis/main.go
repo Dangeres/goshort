@@ -24,6 +24,17 @@ func (r Redis) Get(ctx context.Context, key string) (string, error) {
 	return r.client.Get(ctx, key).Result()
 }
 
+// Expire uses for get expire key
+func (r Redis) Expire(ctx context.Context, key string) (int64, error) {
+	res, err := r.client.ExpireTime(ctx, key).Result()
+
+	if err != nil {
+		return 0, err
+	}
+
+	return int64(res / time.Second), nil
+}
+
 // Close uses for close client
 func (r Redis) Close() error {
 	return r.client.Close()

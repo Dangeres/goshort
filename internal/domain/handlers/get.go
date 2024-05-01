@@ -11,7 +11,7 @@ import (
 )
 
 // HUnShort uses for unshort url
-func (url URL) HUnShort(w http.ResponseWriter, r *http.Request) {
+func (hu HandlerURL) UnShort(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
 	getin := structures.GetIn{}
@@ -26,19 +26,15 @@ func (url URL) HUnShort(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	rdata, err := url.redis.Get(ctx, getin.URL)
+	pr, err := hu.actions.Get(ctx, getin)
 
 	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
+		w.WriteHeader(http.StatusInternalServerError)
 		log.Println(err)
 		return
 	}
 
-	boutdata := []byte(rdata)
-
-	pr := structures.InRedisData{}
-
-	err = json.Unmarshal(boutdata, &pr)
+	boutdata, err := json.Marshal(&pr)
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -47,7 +43,7 @@ func (url URL) HUnShort(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if getin.Redirect {
-		http.Redirect(w, r, pr.URL, http.StatusSeeOther)
+		http.Redirect(w, r, pr.URL, http.StatusPermanentRedirect)
 		return
 	}
 

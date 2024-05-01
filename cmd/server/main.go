@@ -36,13 +36,13 @@ func main() {
 	mux.HandleFunc(
 		"GET /get",
 
-		middlewares.CalcTime(hndls.HUnShort),
+		middlewares.CalcTime(hndls.UnShort),
 	)
 
 	mux.HandleFunc(
 		"POST /create",
 
-		middlewares.CalcTime(hndls.HShort),
+		middlewares.CalcTime(hndls.Short),
 	)
 
 	fullIP := fmt.Sprintf("%s:%s", constants.ServerAddress, constants.ServerPort)
